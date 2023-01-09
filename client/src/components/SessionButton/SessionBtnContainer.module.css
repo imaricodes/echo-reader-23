@@ -1,0 +1,31 @@
+.btn { 
+   
+    color: #ffff;
+    cursor: pointer;
+}
+
+.btn--green {
+    background-color: var(--buttonGreen);
+}
+
+.btn--circle {
+    height: 100px;
+    width: 100px;
+    border: none;
+    border-radius: 50%;
+    
+}
+
+.btn--text {
+    font-size: 25px;
+}
+
+
+.sessionBtn-container {
+	margin: 0;
+	font-size: var(--mic-icon-size)/8;
+}
+
+.flex {
+    flex-shrink: 0;
+}

@@ -1,0 +1,16 @@
+.header {
+    display: flex;
+    padding-left: 2.5%;
+    background-color: #FCE8E8;
+    box-shadow: 0 0 32px 0 rgb(0 0 0 / 16%);
+    height: 10vh;
+    margin-bottom: 50px;
+    color: #A25A5A; 
+  }
+
+  .header__title {
+    font-size: 3rem;
+    font-weight: 400;
+    margin-bottom: .20em;
+  }
+  

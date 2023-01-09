@@ -1,0 +1,9 @@
+.student-read-img {
+    border: 2px solid lightblue;
+    /* flex-basis: 350px; */
+    /* min-width: none; */
+}
+
+.img__student-read {
+    width: 400px;
+}

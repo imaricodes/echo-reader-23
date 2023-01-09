@@ -1,0 +1,23 @@
+/* @import url('./css/res@import-normalize;et.css'); */
+@import-normalize;
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+:root{
+  --buttonGreen: #09ad09;
+  --textColor: #707070;
+  --mic-icon-primary-color: #189BFF;
+  --mic-icon-secondary-color: #189BFF;
+  --mic-icon-size: 100px;
+     
+}
+
+
+body {
+  color: var(--textColor);
+    font-family: 'Poppins', sans-serif;
+}
+
+/* code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+} */

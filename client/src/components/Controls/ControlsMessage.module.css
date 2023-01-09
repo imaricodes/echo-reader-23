@@ -1,0 +1,13 @@
+.controls__message {
+    /* max-width: 50%; */
+    /* temp */
+    width: 100px;
+    height: 50px;
+    background-color: lightgreen; 
+ 
+}
+
+.controls__message__p {
+    color: var(--textColor);
+    font-size: 40px;
+}
