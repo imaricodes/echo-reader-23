@@ -21,20 +21,22 @@ const io = new Server(server, {
 io.on("connection", (socket) => {
     console.log(`User connected: ${socket.id}`)
 
-    socket.on("join_room", (data) => { 
-        socket.join(data);
 
+
+    socket.on("recorder_started",(data) => {
+        console.log(`${JSON.stringify(data)} from ${socket.id}`)
+
+        setTimeout( () =>{
+            socket.emit("stop_recorder", "stop recorder")
+        }, 2000)
+       
     })
 
-
-    socket.on("send_message",(data) => {
-        console.log(`data: ${JSON.stringify(data)} message from ${socket.id}`)
-
-        socket.to(data.room).emit("receive_message", data)
-
+    socket.on("recorder_stopped", (data) => {
+        console.log(data)
     })
 })
 
 server.listen(3001, () => {
-    console.log('server is running')
+    console.log('server is running local host 3001')
 })
