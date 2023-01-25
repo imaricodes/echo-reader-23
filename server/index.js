@@ -34,7 +34,14 @@ const request = {
   interimResults: true,
 };
 
-let recognizeStream = null;
+
+
+
+
+
+io.on("connection", (socket) => {
+
+  console.log(`connected with user id ${socket.id}`)
 
 
 const speechCallback = (stream) => {
@@ -55,9 +62,16 @@ const speechCallback = (stream) => {
   // }
 }
 
-io.on("connection", (socket) => {
-
-  console.log(`user id ${socket.id}`)
+let recognizeStream = client
+.streamingRecognize(request)
+.on('error', err => {
+  if (err.code === 11) {
+    // restartStream();
+  } else {
+    console.error('API request error ' + err);
+  }
+})
+.on("data", speechCallback);
 
   socket.on("start_speech", (data) => {
     console.log('data received ', data)
@@ -65,17 +79,6 @@ io.on("connection", (socket) => {
 
   socket.on("incoming_stream", (audio) => {
     // console.log(`incoming stream ${audio}`)
-    recognizeStream = client
-    .streamingRecognize(request)
-    .on('error', err => {
-      if (err.code === 11) {
-        // restartStream();
-      } else {
-        console.error('API request error ' + err);
-      }
-    })
-    .on('data', speechCallback);
-
     recognizeStream.write(audio);
 
   });
