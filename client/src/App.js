@@ -2,20 +2,9 @@
 
 
 import React from 'react'
-import io from 'socket.io-client';
+import {io} from 'socket.io-client';
 import {useState,useEffect} from 'react';
 import { startWebMic } from './js/recorder';
-
-// import {startWebMic} from './js/recorder'
-
-
-
-
-
-
-
-
-
 
 
 
@@ -25,23 +14,19 @@ const run = () => {
 
     if (socket) {
         // console.log('client id ', socket)
+        socket.emit("start_speech","start_speech")
         startWebMic(socket)
     }
-
 }
 
 
 
-return (
+    return (
 
-    <div>
-   <button onClick={run}>button</button>
-
-
-  
-    </div>
-
-)
+        <div>
+            <button onClick={run}>button</button>
+        </div>
+    )
 
 
 }
