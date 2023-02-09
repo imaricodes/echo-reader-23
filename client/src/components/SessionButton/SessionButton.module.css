@@ -5,12 +5,13 @@
 }
 
 .btn--green {
-    background-color: var(--buttonGreen);
+    /* background-color: var(--buttonGreen); */
+    background-color: green;
 }
 
 .btn--circle {
-    height: 100px;
-    width: 100px;
+    height: 50px;
+    width: 50px;
     border: none;
     border-radius: 50%;
 }

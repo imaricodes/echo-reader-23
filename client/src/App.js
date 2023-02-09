@@ -5,10 +5,19 @@ import React from 'react'
 import {io} from 'socket.io-client';
 import {useState,useEffect} from 'react';
 import { startWebMic } from './js/recorder';
+import { processCue, processResponse } from "./js/processes";
+import Header from './components/Header';
+import ControlsContainer from './components/Controls/ControlsContainer';
+import Stage from './components/Stage/Stage';
+import { SessionContextProvider } from './contexts/SessionContext';
 
 
 
 function App() {
+
+
+
+
 const run = () => {
     const socket = io.connect("http://localhost:3001")
 
@@ -16,16 +25,24 @@ const run = () => {
         // console.log('client id ', socket)
         socket.emit("start_speech","start_speech")
         startWebMic(socket)
+        //socket response received, do this
+        /** 
+         * 
+         */
     }
 }
 
-
-
     return (
+      
+        
+        <SessionContextProvider>
+            <Header/>
+            <ControlsContainer/>
+            <Stage/>
 
-        <div>
-            <button onClick={run}>button</button>
-        </div>
+            {/* <button onClick={run}>button</button> */}
+        </SessionContextProvider>
+       
     )
 
 

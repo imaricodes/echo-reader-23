@@ -7,6 +7,7 @@ const cors = require('cors')
 
 
 
+
 app.use(cors());
 /** CREATE SERVER */
 const server = http.createServer(app);
@@ -36,23 +37,20 @@ const request = {
 
 
 
-
-
-
 io.on("connection", (socket) => {
 
   console.log(`connected with user id ${socket.id}`)
 
 
 const speechCallback = (stream) => {
-
+  //TODO: set timeout in case final transcript does not arrive
   console.log('SPEECH CALLBACK CALLED')
   let words = stream.results[0].alternatives[0].transcript;
   let wordsArray = words.split(" ");
   console.log("FINAL TRANSCRIPT? :", stream.results[0].isFinal);
   // console.log("FINAL TRANSCRIPT: ", words);
   // console.log("word array length ", wordsArray.length);
-  // console.log(JSON.stringify(wordsArray));
+  console.log(JSON.stringify(wordsArray));
 
   // if (stream.results[0].isFinal == true) {
   //   //send signal to stop recordRTC

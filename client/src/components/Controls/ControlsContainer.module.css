@@ -1,0 +1,8 @@
+.controls-container{
+    border: 2px solid purple;
+    display: flex;
+    justify-content: space-between;
+    
+    align-items: center;
+}
+

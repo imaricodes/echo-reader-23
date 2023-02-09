@@ -1,15 +1,18 @@
 .header {
-    display: flex;
-    padding-left: 2.5%;
-    background-color: #FCE8E8;
-    box-shadow: 0 0 32px 0 rgb(0 0 0 / 16%);
-    height: 10vh;
-    margin-bottom: 50px;
-    color: #A25A5A; 
+  display: flex;
+  /* background-color: #FCE8E8; */
+  box-shadow: 0 0 32px 0 rgb(0 0 0 / 16%);
+  color: #A25A5A;
+  justify-content: space-between;
+  padding-left: .5rem;
+  padding-right: .5rem;
+  padding-bottom: .75rem;
+  padding-top: .75rem;
+  align-items: center;
   }
 
   .header__title {
-    font-size: 3rem;
+    font-size: 2rem;
     font-weight: 400;
     margin-bottom: .20em;
   }

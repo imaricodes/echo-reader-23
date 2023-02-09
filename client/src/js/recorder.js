@@ -17,7 +17,7 @@ export const startWebMic = (socket) => {
   
   const reader = new FileReader();
   
-  function mediaRecorderDataAvailable(e) {
+  function sendRecorderDataWhenAvailable(e) {
     reader.readAsDataURL(e.data)
     reader.onload = () => {
       let base64data = reader.result.split("base64,")[1];
@@ -26,7 +26,7 @@ export const startWebMic = (socket) => {
     }
   }
   
-  async  function startRecorder() {
+  async function startRecorder() {
     console.log('async called')
     
     try {
@@ -41,16 +41,14 @@ export const startWebMic = (socket) => {
         mediaRecorder.start(250);
    
         console.log(`mediarecorder mime type `, mediaRecorder.mimeType)
-        mediaRecorder.ondataavailable = mediaRecorderDataAvailable;
+        mediaRecorder.ondataavailable = sendRecorderDataWhenAvailable;
   
       })
       
     } catch (error) {
       //handle error here
     }
-  
   }
-    
     startRecorder()
 }
 
