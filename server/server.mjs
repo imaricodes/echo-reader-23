@@ -48,6 +48,7 @@ io.on("connection", (socket) => {
   console.log(`connected with user id ${socket.id}`)
 
   socket.on("send_cueData", (data) => {
+    console.log(`cue data sent ${data.cueLength}`)
   })
 
 

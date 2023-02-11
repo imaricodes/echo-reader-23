@@ -24,6 +24,7 @@ const Stage = () => {
         let cue = CUE_PHRASES[Math.floor(Math.random() * CUE_PHRASES.length)];
         let processedCue = processCue(cue)
         console.log(`stringified ${JSON.stringify(processedCue)}`)
+        console.log(`cue length ${processedCue.cueLength}`)
         socket.emit ("send_cueData", processedCue)
 
         socket.emit("start_speech","start_speech")

@@ -9,10 +9,13 @@ export function processCue(cue) {
       .toLowerCase();
   
     let sentenceToEvaluateArray = sentenceNoPunctuation.split(" ");
+    let cueLength = sentenceToEvaluateArray.length;
   
      console.log(`evalutate array ${sentenceToEvaluateArray}`)
     return {
       display: sentenceToDisplay, //array
-      evaluate: sentenceToEvaluateArray, //array
+      evaluate: sentenceToEvaluateArray,
+      cueLength: cueLength //array
+      
     };
   }
