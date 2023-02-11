@@ -6,6 +6,9 @@ import { createServer} from 'http'
 import {Server} from 'socket.io'
 import cors from 'cors'
 
+import { processResponse } from './js/processTranscription.mjs'
+
+
 const app = express();
 
 
@@ -26,8 +29,6 @@ const io = new Server(server, {
 
 
 // Imports the Google Cloud client library
-// const speech = require('@google-cloud/speech');
-
 import speech from '@google-cloud/speech'
 const client = new speech.SpeechClient();
 
@@ -53,13 +54,26 @@ const speechCallback = (stream) => {
   let words = stream.results[0].alternatives[0].transcript;
   let wordsArray = words.split(" ");
 
-  //TODO: here, should this be further processed in backend before emitting to user?
+ 
   console.log("FINAL TRANSCRIPT? :", stream.results[0].isFinal);
 
 
   // console.log("FINAL TRANSCRIPT: ", words);
   // console.log("word array length ", wordsArray.length);
+  console.log(`words: ${words}`)
+  console.log(typeof words)
   console.log(JSON.stringify(wordsArray));
+
+   if (stream.results[0].isFinal == true) {
+    //process result
+    let processedResult = processResponse(words, 3)
+
+    console.log(`processedResult evaluate ${processedResult.evaluate}`)
+    console.log(`processedResult display ${processedResult.display}`)
+     //TODO: run evaluation function to compare processed result with current cue (cue needs to be sent from the front end) 
+
+  }
+
 
   // if (stream.results[0].isFinal == true) {
   //   //send signal to stop recordRTC

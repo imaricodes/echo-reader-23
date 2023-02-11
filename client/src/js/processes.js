@@ -1,6 +1,6 @@
 const regexRemovePunctuation = /[!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~]/g;
 
-//TODO: CHOOSE sentence random from array
+
 export function processCue() {
   let arr = [
     "The truth hurts my feet.",

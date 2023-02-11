@@ -51,7 +51,7 @@ export const startWebMic = (socket) => {
   }
     startRecorder()
 
-    //TODO: return data
+    //TODO: return data to front end for display to user
 }
 
 
