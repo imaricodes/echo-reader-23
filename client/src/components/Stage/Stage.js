@@ -18,9 +18,12 @@ const Stage = () => {
         // console.log('client id ', socket)
         socket.emit("start_speech","start_speech")
         startWebMic(socket)
-        //socket response received, do this
+        
+        //TODO: handle receipt of transcribed data
         /** 
-         * 
+         * socket.on = receipt of object that holds final array of words for display
+         * that data must be sent to the hooks that build the display elements, call those hooks from within this run function?
+         * after data is received, close the socket, end the recorder
          */
     }
 }

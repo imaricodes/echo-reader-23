@@ -1,4 +1,4 @@
-import {io} from '../index'
+import {io} from '../index.mjs'
 
 io.on("connection", (socket) => {
     console.log(`User connected: ${socket.id}`)

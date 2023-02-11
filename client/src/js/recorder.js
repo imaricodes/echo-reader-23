@@ -50,6 +50,8 @@ export const startWebMic = (socket) => {
     }
   }
     startRecorder()
+
+    //TODO: return data
 }
 
 

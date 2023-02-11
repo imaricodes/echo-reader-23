@@ -1,16 +1,21 @@
 //EXPRES SERVER SETUP https://www.youtube.com/watch?v=djMy4QsPWiI&t=1s
-const express = require('express')
+
+
+import express from 'express'
+import { createServer} from 'http'
+import {Server} from 'socket.io'
+import cors from 'cors'
+
 const app = express();
-const http = require("http");
-const {Server} = require('socket.io');
-const cors = require('cors')
 
 
-
+/** MIDDLEWARE */
 
 app.use(cors());
+
+
 /** CREATE SERVER */
-const server = http.createServer(app);
+const server = createServer(app);
 const io = new Server(server, {
     cors: {
         orgin:"http://localhost:3000",
@@ -21,7 +26,9 @@ const io = new Server(server, {
 
 
 // Imports the Google Cloud client library
-const speech = require('@google-cloud/speech');
+// const speech = require('@google-cloud/speech');
+
+import speech from '@google-cloud/speech'
 const client = new speech.SpeechClient();
 
 const config = {
@@ -35,8 +42,6 @@ const request = {
   interimResults: true,
 };
 
-
-
 io.on("connection", (socket) => {
 
   console.log(`connected with user id ${socket.id}`)
@@ -47,7 +52,11 @@ const speechCallback = (stream) => {
   console.log('SPEECH CALLBACK CALLED')
   let words = stream.results[0].alternatives[0].transcript;
   let wordsArray = words.split(" ");
+
+  //TODO: here, should this be further processed in backend before emitting to user?
   console.log("FINAL TRANSCRIPT? :", stream.results[0].isFinal);
+
+
   // console.log("FINAL TRANSCRIPT: ", words);
   // console.log("word array length ", wordsArray.length);
   console.log(JSON.stringify(wordsArray));
