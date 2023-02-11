@@ -3,8 +3,6 @@
 
 import React from 'react'
 import {useState,useEffect} from 'react';
-import {io} from 'socket.io-client';
-import { startWebMic } from './js/recorder';
 import { processCue, processResponse } from "./js/processes";
 import Header from './components/Header';
 import ControlsContainer from './components/Controls/ControlsContainer';
@@ -15,22 +13,6 @@ import { SessionContextProvider } from './contexts/SessionContext';
 
 function App() {
 
-
-
-
-const run = () => {
-    const socket = io.connect("http://localhost:3001")
-
-    if (socket) {
-        // console.log('client id ', socket)
-        socket.emit("start_speech","start_speech")
-        startWebMic(socket)
-        //socket response received, do this
-        /** 
-         * 
-         */
-    }
-}
 
     return (
       
@@ -44,8 +26,6 @@ const run = () => {
         </SessionContextProvider>
        
     )
-
-
 }
 
 

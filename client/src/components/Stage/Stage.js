@@ -10,6 +10,22 @@ import StageStartCard from "../StageComponents/StageStartCard";
 import ResultsCard from "../StageComponents/ResultsCard";
 
 const Stage = () => {
+
+  const run = () => {
+    const socket = io.connect("http://localhost:3001")
+
+    if (socket) {
+        // console.log('client id ', socket)
+        socket.emit("start_speech","start_speech")
+        startWebMic(socket)
+        //socket response received, do this
+        /** 
+         * 
+         */
+    }
+}
+
+
   const CUE_PHRASES = [
     "The truth hurts my feet.",
     "Those are beautiful shoes.",
@@ -22,19 +38,7 @@ const Stage = () => {
     "I like peanuts in my cereal.",
   ];
 
-  const run = () => {
-    const socket = io.connect("http://localhost:3001");
 
-    if (socket) {
-      // console.log('client id ', socket)
-      socket.emit("start_speech", "start_speech");
-      startWebMic(socket);
-      //socket response received, do this
-      /**
-       *
-       */
-    }
-  };
 
   let cue = '';
   const cueTextRef = useRef();
@@ -65,7 +69,7 @@ const Stage = () => {
     ${styles["btn--green"]}
     ${styles["btn--circle"]}
     `}
-          onClick={addCue}
+          onClick={run}
         >
           Go
         </button>
