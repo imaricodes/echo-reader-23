@@ -1,35 +1,5 @@
 const regexRemovePunctuation = /[!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~]/g;
 
- 
-export function processCue() {
-  let arr = [
-    "The truth hurts my feet.",
-    "Those are beautiful shoes.",
-    "I want candy.",
-    "More people eat chicken now.",
-    "Salamanders are slimy creatuers.",
-    "Nobody likes rotten candy.",
-    "Math is fun.",
-    "A sunny day is a great day.",
-    "I like peanuts in my cereal.",
-  ];
-
-  let cue = arr[Math.floor(Math.random() * arr.length)];
-
-  let sentenceToDisplay = cue.split(" ");
-
-  let sentenceNoPunctuation = cue
-    .replace(regexRemovePunctuation, "")
-    .toLowerCase();
-
-  let sentenceToEvaluateArray = sentenceNoPunctuation.split(" ");
-
-  return {
-    display: sentenceToDisplay, //array
-    evaluate: sentenceToEvaluateArray, //array
-  };
-}
-
 let normalizeArrayLength = (maxWords, responseArray) => {
   if (maxWords === responseArray.length) {
     return responseArray;

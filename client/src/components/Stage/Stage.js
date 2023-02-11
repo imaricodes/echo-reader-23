@@ -3,6 +3,7 @@ import React, { useContext, useState, useEffect, useRef } from "react";
 import styles from "./Stage.module.css";
 import { io } from "socket.io-client";
 import { startWebMic } from "../../js/recorder";
+import { processCue } from "../../js/processCue";
 
 import { SessionContext } from "../../contexts/SessionContext";
 import CueSentenceCard from "../StageComponents/CueSentenceCard";
@@ -15,8 +16,16 @@ const Stage = () => {
     const socket = io.connect("http://localhost:3001")
 
     if (socket) {
+
+
         // console.log('client id ', socket)
         //TODO: send cue and max words to backend
+
+        let cue = CUE_PHRASES[Math.floor(Math.random() * CUE_PHRASES.length)];
+        let processedCue = processCue(cue)
+        console.log(`stringified ${JSON.stringify(processedCue)}`)
+        socket.emit ("send_cueData", processedCue)
+
         socket.emit("start_speech","start_speech")
 
         startWebMic(socket)
@@ -52,7 +61,7 @@ const Stage = () => {
   const [sessionState, setSessionState] = useContext(SessionContext);
 
   let addCue = () => {
-    let cue = CUE_PHRASES[Math.floor(Math.random() * CUE_PHRASES.length)];
+    // let cue = CUE_PHRASES[Math.floor(Math.random() * CUE_PHRASES.length)];
     console.log("index: ", cue);
     window.localStorage.setItem('cue', cue);
     console.log(presentationContainerRef.current);
