@@ -44,11 +44,12 @@ const request = {
 };
 
 io.on("connection", (socket) => {
+  let cueData = {};
 
   console.log(`connected with user id ${socket.id}`)
 
   socket.on("send_cueData", (data) => {
-    console.log(`cue data sent ${data.cueLength}`)
+    cueData = {...data}
   })
 
 
@@ -74,6 +75,9 @@ const speechCallback = (stream) => {
 
     console.log(`processedResult evaluate ${processedResult.evaluate}`)
     console.log(`processedResult display ${processedResult.display}`)
+
+    console.log(`cue data spread ${cueData.display}`)
+
      //TODO: run evaluation function to compare processed result with current cue (cue needs to be sent from the front end) 
 
   }
