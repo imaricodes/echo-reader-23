@@ -16,7 +16,9 @@ const Stage = () => {
 
     if (socket) {
         // console.log('client id ', socket)
+        //TODO: send cue and max words to backend
         socket.emit("start_speech","start_speech")
+
         startWebMic(socket)
         
         //TODO: handle receipt of transcribed data
