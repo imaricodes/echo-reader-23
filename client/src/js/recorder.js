@@ -17,11 +17,14 @@ export const startWebMic = (socket) => {
   
   const reader = new FileReader();
   
+  let base64data;
+
   function sendRecorderDataWhenAvailable(e) {
+
     reader.readAsDataURL(e.data)
     reader.onload = () => {
-      let base64data = reader.result.split("base64,")[1];
-      // console.log(`base64 ${base64data}`)
+      base64data = reader.result.split("base64,")[1];
+      console.log(`base64 ${base64data}`)
       socket.emit('incoming_stream', base64data)
     }
   }
