@@ -60,7 +60,7 @@ io.on("connection", (socket) => {
     // console.log("word array length ", wordsArray.length);
     // console.log(`words: ${words}`)
     // console.log(typeof words)
-    // console.log(JSON.stringify(wordsArray));
+    console.log(JSON.stringify(wordsArray));
 
     if (stream.results[0].isFinal == true) {
       //process result
@@ -96,14 +96,14 @@ io.on("connection", (socket) => {
         console.error("API request error " + err);
       }
     })
-    .on("data", ()=> console.log(`speech callback should be called`));
+    .on("data", speechCallback);
 
   socket.on("start_speech", (data) => {
     console.log("data received ", data);
   });
 
   socket.on("incoming_stream", (audio) => {
-    // console.log(`incoming stream ${audio}`)
+    console.log(`incoming stream ${audio}`)
     recognizeStream.write(audio);
   });
 });
