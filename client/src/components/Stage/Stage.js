@@ -12,11 +12,22 @@ import ResultsCard from "../StageComponents/ResultsCard";
 
 const Stage = () => {
 
+
+  //session button state
+  const [sessionButton, setSessionButton] = useState('')
+
+  const handleSessionButton = () => {
+  //if sesionbutton state is "go" (initial state is go, showing 'go' text), * set stage state to 'display clue',  set session button state to start (pass state as prop?)
+
+
+   //if sesionbutton state is "start" (showing 'start' text), set stage state to 'display clue'
+  }
+
+
   const run = () => {
     const socket = io.connect("http://localhost:3001")
 
     if (socket) {
-
 
         // console.log('client id ', socket)
         //TODO: send cue and max words to backend
@@ -75,9 +86,10 @@ const Stage = () => {
   };
 
   return (
-    <div ref={cueTextRef}>
-      <div className="contols">
+    <div className="stage"  ref={cueTextRef}>
+      <div className="stage-controls">
         <button
+       
           className={`
     
     ${styles["btn"]} 

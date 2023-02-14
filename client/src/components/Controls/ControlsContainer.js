@@ -7,13 +7,33 @@ import SessionButton from '../SessionButton/SessionButton'
 import SessionBtnContainer from '../SessionButton/SessionBtnContainer'
 
 
-const ControlsContainer = () => {
+const ControlsContainer = (props) => {
+
+  let handleClick = () => {
+
+    //check current session state
+
+    //either update current session state or button state
+    console.log('current parent session state prop ', props.currentSessionState)
+    props.setSession('start')
+  }
   return (
 
 
     <div className={styles['controls-container']}>
      CONTROLS CONTAINER
-      <SessionButton/>
+     <button
+       
+       className={`
+ 
+ ${styles["btn"]} 
+ ${styles["btn--green"]}
+ ${styles["btn--circle"]}
+ `}
+       onClick={handleClick}
+     >
+       Go
+     </button>
 
     </div>
   )

@@ -6,3 +6,25 @@
     align-items: center;
 }
 
+.btn { 
+   
+    color: #ffff;
+    cursor: pointer;
+}
+
+.btn--green {
+    /* background-color: var(--buttonGreen); */
+    background-color: green;
+}
+
+.btn--circle {
+    height: 50px;
+    width: 50px;
+    border: none;
+    border-radius: 50%;
+}
+
+.btn--text {
+    font-size: 25px;
+}
+

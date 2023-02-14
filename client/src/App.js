@@ -1,55 +1,35 @@
 //https://www.youtube.com/watch?v=djMy4QsPWiI&t=1s
 
-
-import React from 'react'
-import {useState,useEffect} from 'react';
+import React from "react";
+import { useState, useEffect } from "react";
 import { processCue, processResponse } from "./js/processes";
-import Header from './components/Header';
-import ControlsContainer from './components/Controls/ControlsContainer';
-import Stage from './components/Stage/Stage';
-import { SessionContextProvider } from './contexts/SessionContext';
-
-
+import Header from "./components/Header";
+import MainContainer from "./components/MainContainer/MainContainer";
 
 function App() {
-
-
-    return (
-      
-        
-        <SessionContextProvider>
-            <Header/>
-            <ControlsContainer/>
-            <Stage/>
-
-            {/* <button onClick={run}>button</button> */}
-        </SessionContextProvider>
-       
-    )
+  return (
+    <div>
+      <Header />
+      <MainContainer />
+    </div>
+  );
 }
-
-
-
 
 export default App;
 
-
-
-
 // /** START TUTORIAL CODE */
-
 
 // //Room State
 // const [room, setRoom] = useState("")
 
-//  //messages states 
+//  //messages states
 // const[message, setMessage] = useState("")
 // const[messageReceived, setMessageReceived] = useState("")
 
 // const joinRoom = () => {
 //   if (room !=="") {
 //     socket.emit("join_room", room)
-    
+
 //   }
 // }
 
@@ -65,17 +45,16 @@ export default App;
 //   })
 // }, [socket])
 
-
 //   return (
 //     <div className="App">
-//       <input 
+//       <input
 //       placeholder="Room Number..."
 //       onChange= {(event) => {
 //         setRoom(event.target.value)
 //       }}
 //       />
 //       <button onClick={joinRoom}> Join Room</button>
-//       <input 
+//       <input
 //       placeholder='Message'
 //       onChange= {(event) => {
 //         setMessage(event.target.value)
