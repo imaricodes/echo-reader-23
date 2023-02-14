@@ -4,11 +4,6 @@
     cursor: pointer;
 }
 
-.btn--green {
-    /* background-color: var(--buttonGreen); */
-    background-color: green;
-}
-
 .btn--circle {
     height: 50px;
     width: 50px;
@@ -23,3 +18,12 @@
 .sessionButton {
 
 }
+
+.btn__sessionbtn--color--green {
+    background-color: green;
+}
+.btn__sessionbtn--color--red {
+    background-color: red;
+
+}
+
