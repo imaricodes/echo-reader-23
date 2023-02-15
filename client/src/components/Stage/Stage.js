@@ -1,4 +1,4 @@
-//TODO: create local storage hook?
+//TODO: handled display of returned speech
 import React, { useContext, useState, useEffect, useRef } from "react";
 import styles from "./Stage.module.css";
 import { io } from "socket.io-client";
@@ -12,13 +12,15 @@ import ResultsCard from "../StageComponents/ResultsCard";
 
 const Stage = (props) => {
 
+  const [cue, setCue] = useState('')
+
   useEffect(() => {
     
     console.log(`stage current state ${props.currentSessionState}`)
     //do something with this state (run recorder, etc)
 
     if (props.currentSessionState === 'start') {
-      addCue()
+      addCue(cue)
       
     }
   
@@ -58,21 +60,19 @@ useEffect( ()=> {
 
 
 
-  let cue = '';
+ 
   const cueTextRef = useRef();
   const presentationContainerRef = useRef();
 
 
   let addCue = () => {
-    let cue = CUE_PHRASES[Math.floor(Math.random() * CUE_PHRASES.length)];
-    console.log("index: ", cue);
-    window.localStorage.setItem('cue', cue);
-    console.log(presentationContainerRef.current);
+    let selectedCue = CUE_PHRASES[Math.floor(Math.random() * CUE_PHRASES.length)];
+    setCue(selectedCue)
     let newDiv = document.createElement("div");
     newDiv.classList.add('cue')
     newDiv.innerText = cue;
     presentationContainerRef.current.appendChild(newDiv);
-    return cue;
+    // return cue;
   };
 
 
@@ -83,11 +83,9 @@ useEffect( ()=> {
 
         // console.log('client id ', socket)
         //TODO: send cue and max words to backend
-
-        let cue = CUE_PHRASES[Math.floor(Math.random() * CUE_PHRASES.length)];
         let processedCue = processCue(cue)
-        console.log(`stringified ${JSON.stringify(processedCue)}`)
-        console.log(`cue length ${processedCue.cueLength}`)
+        // console.log(`stringified ${JSON.stringify(processedCue)}`)
+        // console.log(`cue length ${processedCue.cueLength}`)
         socket.emit ("send_cueData", processedCue)
 
 

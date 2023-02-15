@@ -44,8 +44,9 @@ io.on("connection", (socket) => {
   console.log(`connected with user id ${socket.id}`);
 
   socket.on("send_cueData", (data) => {
-    console.log(`cudeData received`);
+    console.log(`cueData received: `, data);
     cueData = { ...data };
+    console.log(`cueData spread ${cueData.display}`)
   });
 
   const speechCallback = (stream) => {
