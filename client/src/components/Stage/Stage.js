@@ -101,8 +101,8 @@ useEffect( ()=> {
           socket.on("results_processed", (data) => {
           console.log('speech results received from server: ', data)
           socket.disconnect()
+          })
 
-        })
 
     }
 }

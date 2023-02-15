@@ -67,8 +67,7 @@ io.on("connection", (socket) => {
       //TODO: where in this process do I close the api connection?
       socket.emit("close_media_recorder", "close_media_recorder")
 
-      socket.emit("results_processed", {result: "words"})
-      //process result
+      
       let processedResponse = processResponse(words, cueData.cueLength);
 
       console.log(`processedResult evaluate ${processedResponse.evaluate}`)
@@ -78,17 +77,16 @@ io.on("connection", (socket) => {
 
        let sessionResult = evaluateSession(cueData, processedResponse)
 
-       console.log(`sessionResult ${sessionResult}`)
+       socket.emit("results_processed", sessionResult)
+      //process result
+
+     
+
+       
 
 
     }
 
-    // if (stream.results[0].isFinal == true) {
-    //   //send signal to stop recordRTC
-    //   socket.emit("killRecorder", "kill recorder");
-
-    //   socket.emit("startProcessing", words)
-    // }
   };
 
   let recognizeStream = client
