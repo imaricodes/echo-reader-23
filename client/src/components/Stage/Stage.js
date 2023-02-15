@@ -36,7 +36,7 @@ useEffect( ()=> {
   }
 
   if (props.currentSessionState === 'restart') {
-    console.log(`session state is ${props.currentSessionState}, stop recorder if running and abort session`)
+  
   }
 }, [props.currentSessionState])
 
@@ -90,7 +90,6 @@ useEffect( ()=> {
         console.log(`cue length ${processedCue.cueLength}`)
         socket.emit ("send_cueData", processedCue)
 
-        socket.emit("start_speech","start_speech")
 
         startWebMic(socket)
         
@@ -100,6 +99,13 @@ useEffect( ()=> {
          * that data must be sent to the hooks that build the display elements, call those hooks from within this run function?
          * after data is received, close the socket, end the recorder
          */
+
+          socket.on("results_processed", (data) => {
+          console.log('speech results received from server: ', data)
+          socket.disconnect()
+
+        })
+
     }
 }
 

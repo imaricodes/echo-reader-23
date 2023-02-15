@@ -65,6 +65,8 @@ io.on("connection", (socket) => {
     if (stream.results[0].isFinal == true) {
 
       socket.emit("close_media_recorder", "close_media_recorder")
+
+      socket.emit("results_processed", {result: "words"})
       //process result
       // let processedResponse = processResponse(words, 3);
 
