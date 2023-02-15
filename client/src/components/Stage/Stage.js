@@ -26,32 +26,22 @@ const Stage = (props) => {
     
 
 
-  const run = () => {
-    const socket = io.connect("http://localhost:3001")
+//run media recorder
 
-    if (socket) {
+useEffect( ()=> {
+ 
+  if (props.currentSessionState === 'listen') {
+    console.log(`session state is ${props.currentSessionState}, running recorder`)
+    run();
+  }
 
-        // console.log('client id ', socket)
-        //TODO: send cue and max words to backend
+  if (props.currentSessionState === 'restart') {
+    console.log(`session state is ${props.currentSessionState}, stop recorder if running and abort session`)
+  }
+}, [props.currentSessionState])
 
-        let cue = CUE_PHRASES[Math.floor(Math.random() * CUE_PHRASES.length)];
-        let processedCue = processCue(cue)
-        console.log(`stringified ${JSON.stringify(processedCue)}`)
-        console.log(`cue length ${processedCue.cueLength}`)
-        socket.emit ("send_cueData", processedCue)
 
-        socket.emit("start_speech","start_speech")
 
-        startWebMic(socket)
-        
-        //TODO: handle receipt of transcribed data
-        /** 
-         * socket.on = receipt of object that holds final array of words for display
-         * that data must be sent to the hooks that build the display elements, call those hooks from within this run function?
-         * after data is received, close the socket, end the recorder
-         */
-    }
-}
 
 
   const CUE_PHRASES = [
@@ -85,6 +75,33 @@ const Stage = (props) => {
     return cue;
   };
 
+
+  const run = () => {
+    const socket = io.connect("http://localhost:3001")
+
+    if (socket) {
+
+        // console.log('client id ', socket)
+        //TODO: send cue and max words to backend
+
+        let cue = CUE_PHRASES[Math.floor(Math.random() * CUE_PHRASES.length)];
+        let processedCue = processCue(cue)
+        console.log(`stringified ${JSON.stringify(processedCue)}`)
+        console.log(`cue length ${processedCue.cueLength}`)
+        socket.emit ("send_cueData", processedCue)
+
+        socket.emit("start_speech","start_speech")
+
+        startWebMic(socket)
+        
+        //TODO: handle receipt of transcribed data
+        /** 
+         * socket.on = receipt of object that holds final array of words for display
+         * that data must be sent to the hooks that build the display elements, call those hooks from within this run function?
+         * after data is received, close the socket, end the recorder
+         */
+    }
+}
 
 //TODO: return component based on session state?
 

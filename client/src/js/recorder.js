@@ -20,11 +20,10 @@ export const startWebMic = (socket) => {
   let base64data;
 
   function sendRecorderDataWhenAvailable(e) {
-
     reader.readAsDataURL(e.data)
     reader.onload = () => {
       base64data = reader.result.split("base64,")[1];
-      console.log(`base64 ${base64data}`)
+      // console.log(`base64 ${base64data}`)
       socket.emit('incoming_stream', base64data)
     }
   }
@@ -40,11 +39,21 @@ export const startWebMic = (socket) => {
       // console.log(track.getCapabilities());
       .then((stream)=> {
         let mediaRecorder = new MediaRecorder(stream, mediaRecorderOptions); //pass in options
-  
-        mediaRecorder.start(250);
+        if (mediaRecorder) {
+          mediaRecorder.start(250);
+        }
+       
    
         console.log(`mediarecorder mime type `, mediaRecorder.mimeType)
         mediaRecorder.ondataavailable = sendRecorderDataWhenAvailable;
+
+        socket.on("close_media_recorder", (data)=> {
+          console.log(`close media recorder message received ${data}`)
+          mediaRecorder.stop()
+          console.log(`media recorder stopped`)
+          mediaRecorder=null;
+          console.log(`media recorder: ${mediaRecorder}`)
+        })
   
       })
       
@@ -52,7 +61,8 @@ export const startWebMic = (socket) => {
       //handle error here
     }
   }
-    startRecorder()
+  
+  startRecorder()
 
     //TODO: return data to front end for display to user
 }

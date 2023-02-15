@@ -14,8 +14,8 @@ const SessionButton = (props) => {
   useEffect(() => {
     buttonState === "go" && setButtonText("Go");
     buttonState === "start" && setButtonText("Start");
-    buttonState === "listen" && setButtonText("Stop");
-    buttonState === "stop" && setButtonText("Start");
+    buttonState === "listen" && setButtonText("Cancel");
+    buttonState === "restart" && setButtonText("Restart");
 
     setSessionState(buttonState)
     // setButtonText('Start')
@@ -46,7 +46,7 @@ const SessionButton = (props) => {
     
     buttonState === "go" && setButtonState("start");
     buttonState === "start" && setButtonState("listen");
-    buttonState === "listen" && setButtonState("go");
+    buttonState === "listen" && setButtonState("restart");
   };
 
   //use effect.. update global session state

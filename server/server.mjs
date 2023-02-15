@@ -63,6 +63,8 @@ io.on("connection", (socket) => {
     console.log(JSON.stringify(wordsArray));
 
     if (stream.results[0].isFinal == true) {
+
+      socket.emit("close_media_recorder", "close_media_recorder")
       //process result
       // let processedResponse = processResponse(words, 3);
 
