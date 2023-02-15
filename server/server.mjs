@@ -64,17 +64,16 @@ io.on("connection", (socket) => {
     console.log(JSON.stringify(wordsArray));
 
     if (stream.results[0].isFinal == true) {
-
+      //TODO: where in this process do I close the api connection?
       socket.emit("close_media_recorder", "close_media_recorder")
 
       socket.emit("results_processed", {result: "words"})
       //process result
-      // let processedResponse = processResponse(words, 3);
+      let processedResponse = processResponse(words, cueData.cueLength);
 
-      // console.log(`processedResult evaluate ${processedResponse.evaluate}`)
-      // console.log(`processedResult display ${processedResponse.display}`)
+      console.log(`processedResult evaluate ${processedResponse.evaluate}`)
+      console.log(`processedResult display ${processedResponse.display}`)
 
-      // console.log(`cue data spread ${cueData.display}`)
 
       //TODO: run evaluation function to compare processed result with current cue (cue needs to be sent from the front end)
 

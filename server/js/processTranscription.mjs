@@ -70,7 +70,7 @@ export function processResponse(response, maxWords) {
   let responseEvaluateArray = responseEvaluateLowerCased.split(" ");
   //   let responseEvaluateArray = response.replace(regex, "").split(" ");
 
-  console.log(`response evaluate array ${responseEvaluateArray}`);
+  // console.log(`response evaluate array ${responseEvaluateArray}`);
 
   //normalize sentence to display length match cue array length
   let sentenceToEvaluateArray = normalizeArrayLength(
