@@ -47,6 +47,7 @@ const SessionButton = (props) => {
     buttonState === "go" && setButtonState("start");
     buttonState === "start" && setButtonState("listen");
     buttonState === "listen" && setButtonState("restart");
+    buttonState === "restart" && setButtonState("go");
   };
 
   //use effect.. update global session state

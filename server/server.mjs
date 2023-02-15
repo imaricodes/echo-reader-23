@@ -100,14 +100,26 @@ io.on("connection", (socket) => {
     })
     .on("data", speechCallback);
 
-  socket.on("start_speech", (data) => {
-    console.log("data received ", data);
-  });
 
   socket.on("incoming_stream", (audio) => {
-    console.log(`incoming stream ${audio}`)
-    recognizeStream.write(audio);
+    console.log(`stream coming`)
+    if (recognizeStream) {
+      recognizeStream.write(audio);
+    } else console.log('no recognize stream')
+    
   });
+
+  socket.on("close_speech_api", (message) => {
+    console.log(message)
+    if (recognizeStream) {
+      console.log('closing speech api...')
+      recognizeStream.end()
+      recognizeStream = null;
+     
+    } else {console.log('speech api already closed')} 
+    
+  })
+
 });
 
 server.listen(3001, () => {

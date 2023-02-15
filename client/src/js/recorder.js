@@ -48,8 +48,10 @@ export const startWebMic = (socket) => {
         mediaRecorder.ondataavailable = sendRecorderDataWhenAvailable;
 
         socket.on("close_media_recorder", (data)=> {
+
           console.log(`close media recorder message received ${data}`)
           mediaRecorder.stop()
+          socket.emit("close_speech_api")
           console.log(`media recorder stopped`)
           mediaRecorder=null;
           console.log(`media recorder: ${mediaRecorder}`)
