@@ -16,19 +16,14 @@ const Stage = (props) => {
     
     console.log(`stage current state ${props.currentSessionState}`)
     //do something with this state (run recorder, etc)
+
+    if (props.currentSessionState === 'start') {
+      addCue()
+      
+    }
   
   }, [props.currentSessionState])
     
-
-  //session button state
-  const [sessionButton, setSessionButton] = useState('')
-
-  const handleSessionButton = () => {
-  //if sesionbutton state is "go" (initial state is go, showing 'go' text), * set stage state to 'display clue',  set session button state to start (pass state as prop?)
-
-
-   //if sesionbutton state is "start" (showing 'start' text), set stage state to 'display clue'
-  }
 
 
   const run = () => {
@@ -77,10 +72,9 @@ const Stage = (props) => {
   const cueTextRef = useRef();
   const presentationContainerRef = useRef();
 
-  const [sessionState, setSessionState] = useContext(SessionContext);
 
   let addCue = () => {
-    // let cue = CUE_PHRASES[Math.floor(Math.random() * CUE_PHRASES.length)];
+    let cue = CUE_PHRASES[Math.floor(Math.random() * CUE_PHRASES.length)];
     console.log("index: ", cue);
     window.localStorage.setItem('cue', cue);
     console.log(presentationContainerRef.current);
@@ -88,26 +82,15 @@ const Stage = (props) => {
     newDiv.classList.add('cue')
     newDiv.innerText = cue;
     presentationContainerRef.current.appendChild(newDiv);
-
     return cue;
   };
 
+
+//TODO: return component based on session state?
+
   return (
     <div className="stage"  ref={cueTextRef}>
-      <div className="stage-controls">
-        <button
-       
-          className={`
-    
-    ${styles["btn"]} 
-    ${styles["btn--green"]}
-    ${styles["btn--circle"]}
-    `}
-          onClick={run}
-        >
-          Go
-        </button>
-      </div>
+ 
       <div
         ref={presentationContainerRef}
         className={`${styles["presentation-container"]} ${styles["stage"]}`}

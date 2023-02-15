@@ -26,18 +26,6 @@ const ControlsContainer = (props) => {
     <div className={styles['controls-container']}>
      CONTROLS CONTAINER
      <SessionButton setSessionState={setSession}/>
-     <button
-       
-       className={`
- 
- ${styles["btn"]} 
- ${styles["btn--green"]}
- ${styles["btn--circle"]}
- `}
-       onClick={handleClick}
-     >
-       Go
-     </button>
 
     </div>
   )
