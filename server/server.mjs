@@ -6,7 +6,7 @@ import { Server } from "socket.io";
 import cors from "cors";
 
 import { processResponse } from "./js/processTranscription.mjs";
-// import {evaluateSession} from './js/utility.mjs';
+import {evaluateSession} from './js/utility.mjs';
 
 const app = express();
 
@@ -74,12 +74,13 @@ io.on("connection", (socket) => {
       console.log(`processedResult evaluate ${processedResponse.evaluate}`)
       console.log(`processedResult display ${processedResponse.display}`)
 
+      //evaluate cue, response and return session result object
 
-      //TODO: run evaluation function to compare processed result with current cue (cue needs to be sent from the front end)
+       let sessionResult = evaluateSession(cueData, processedResponse)
 
-      //  let sessionResult = evaluateSession(cueData, processedResponse)
+       console.log(`sessionResult ${sessionResult}`)
 
-      //  console.log(`sessionResult ${sessionResult}`)
+
     }
 
     // if (stream.results[0].isFinal == true) {
