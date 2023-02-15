@@ -10,6 +10,8 @@ import SessionBtnContainer from '../SessionButton/SessionBtnContainer'
 const ControlsContainer = (props) => {
   // let currentSessionState = {...props.currentSessionState}
 
+  let setSession = props.setSession;
+
   let handleClick = () => {
 
     //check current session state
@@ -23,7 +25,7 @@ const ControlsContainer = (props) => {
 
     <div className={styles['controls-container']}>
      CONTROLS CONTAINER
-     <SessionButton/>
+     <SessionButton setSessionState={setSession}/>
      <button
        
        className={`

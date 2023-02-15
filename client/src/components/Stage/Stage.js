@@ -10,8 +10,15 @@ import CueSentenceCard from "../StageComponents/CueSentenceCard";
 import StageStartCard from "../StageComponents/StageStartCard";
 import ResultsCard from "../StageComponents/ResultsCard";
 
-const Stage = () => {
+const Stage = (props) => {
 
+  useEffect(() => {
+    
+    console.log(`stage current state ${props.currentSessionState}`)
+    //do something with this state (run recorder, etc)
+  
+  }, [props.currentSessionState])
+    
 
   //session button state
   const [sessionButton, setSessionButton] = useState('')
