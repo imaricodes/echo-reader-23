@@ -23,7 +23,7 @@ export const startWebMic = (socket) => {
     reader.readAsDataURL(e.data)
     reader.onload = () => {
       base64data = reader.result.split("base64,")[1];
-      // console.log(`base64 ${base64data}`)
+      console.log(`base64 ${base64data}`)
       socket.emit('incoming_stream', base64data)
     }
   }
@@ -47,6 +47,18 @@ export const startWebMic = (socket) => {
         console.log(`mediarecorder mime type `, mediaRecorder.mimeType)
         mediaRecorder.ondataavailable = sendRecorderDataWhenAvailable;
 
+        //temporarily disabled for testing
+        // socket.on("close_media_recorder", (data)=> {
+
+        //   console.log(`close media recorder message received ${data}`)
+        //   mediaRecorder.stop()
+        //   socket.emit("close_speech_api")
+        //   console.log(`media recorder stopped`)
+        //   mediaRecorder=null;
+        //   console.log(`media recorder: ${mediaRecorder}`)
+        // })
+
+        //temporarily enabled for testing
         socket.on("close_media_recorder", (data)=> {
 
           console.log(`close media recorder message received ${data}`)
@@ -56,6 +68,7 @@ export const startWebMic = (socket) => {
           mediaRecorder=null;
           console.log(`media recorder: ${mediaRecorder}`)
         })
+
   
       })
       

@@ -1,8 +1,24 @@
-import React from 'react'
+import React, {useEffect, useRef} from 'react'
+import { displayResponses } from '../../js/displayUtilities'
 
-const ResultsCard = () => {
+const ResultsCard = (props) => {
+  const sessionResults = props.sessionResult
+  const resultDisplayRef = useRef()
+
+  useEffect( () => {
+    // displayResponses(sessionResults)
+    
+    console.log('result card use effect fired')
+
+  }, [sessionResults])
+  
   return (
-    <div>ResultsCard</div>
+    <div className='result-card'>
+      <div ref={resultDisplayRef}>
+
+      </div>
+      ResultsCard
+    </div>
   )
 }
 

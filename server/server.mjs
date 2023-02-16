@@ -80,11 +80,6 @@ io.on("connection", (socket) => {
        socket.emit("results_processed", sessionResult)
       //process result
 
-     
-
-       
-
-
     }
 
   };
@@ -102,11 +97,58 @@ io.on("connection", (socket) => {
     .on("data", speechCallback);
 
 
+  //disabled temporarily for testing
+  // socket.on("incoming_stream", (audio) => {
+  //   console.log(`stream coming`)
+  //   if (recognizeStream) {
+  //     recognizeStream.write(audio);
+  //   } else console.log('no recognize stream')
+    
+  // });
+
+  //enabled temporarily for testing
   socket.on("incoming_stream", (audio) => {
     console.log(`stream coming`)
-    if (recognizeStream) {
-      recognizeStream.write(audio);
-    } else console.log('no recognize stream')
+    socket.emit("close_media_recorder", "close_media_recorder")
+
+    let sessionResult = [
+        ["I", "like", "peanuts", "in", "my", "cereal."],
+        ["I", "like", "peanuts", "in", "my", "cereal."],
+        { cueWord: "i", responseWord: "i", match: "true", responseDisplayWord: "I" },
+        {
+          cueWord: "like",
+          responseWord: "like",
+          match: "true",
+          responseDisplayWord: "like"
+        },
+        {
+          cueWord: "peanuts",
+          responseWord: "peanuts",
+          match: "true",
+          responseDisplayWord: "peanuts"
+        },
+        {
+          cueWord: "in",
+          responseWord: "in",
+          match: "true",
+          responseDisplayWord: "in"
+        },
+        {
+          cueWord: "my",
+          responseWord: "my",
+          match: "true",
+          responseDisplayWord: "my"
+        },
+        {
+          cueWord: "cereal",
+          responseWord: "cereal",
+          match: "true",
+          responseDisplayWord: "cereal."
+        }
+      ];
+
+    socket.emit("results_processed", sessionResult)
+
     
   });
 
