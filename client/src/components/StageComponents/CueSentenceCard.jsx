@@ -1,8 +1,24 @@
-import React from 'react'
+import React, {useRef, useEffect} from 'react'
 
-const CueSentenceCard = () => {
+
+const CueSentenceCard = (props) => {
+
+  const cuePresentationContainerRef = useRef();
+
+  useEffect(()=> {
+
+    if (cuePresentationContainerRef.current.childNodes.length===0) {
+    let newDiv = document.createElement("div");
+      newDiv.classList.add("cue");
+      newDiv.innerText = props.cue;
+      cuePresentationContainerRef.current.appendChild(newDiv);
+    }
+   
+  },[])
+
+
   return (
-    <div>CueSentenceCard</div>
+    <div ref={cuePresentationContainerRef}></div>
   )
 }
 

@@ -3,7 +3,7 @@
 
 
 export const startWebMic = (socket) => {
-  console.log ('useEffect running')
+
 
   const getUserMediaConstraints = {audio: {
     channelCount: 1,

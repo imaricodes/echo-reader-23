@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useRef} from 'react'
 import Header from '../Header'
 import ControlsContainer from '../Controls/ControlsContainer'
 import Stage from '../Stage/Stage'
@@ -8,7 +8,6 @@ const MainContainer = () => {
 
 const [sessionState, setSessionState] = useState('go');
 // console.log('current parent session sate ', sessionState)
-
 
 
   return (

@@ -23,25 +23,12 @@ const Stage = (props) => {
     "I like peanuts in my cereal.",
   ];
 
-  const [cue, setCue] = useState("");
-  const [sessionResult, setSessionResult] = useState(null)
-  const cueTextRef = useRef();
-  const presentationContainerRef = useRef();
-
-  useEffect(() => {
-    console.log(`stage current state ${props.currentSessionState}`);
-    //do something with this state (run recorder, etc)
-
-    if (props.currentSessionState === "start") {
-      addCue(cue);
-    }
-  }, [props.currentSessionState]);
-
+  // const [cue, setCue] = useState(null);
+  const [sessionResult, setSessionResult] = useState(null);
+  const cueRef = useRef("");
+  //Run listening function if currentSessionState
   useEffect(() => {
     if (props.currentSessionState === "listen") {
-      console.log(
-        `session state is ${props.currentSessionState}, running recorder`
-      );
       run();
     }
 
@@ -49,17 +36,18 @@ const Stage = (props) => {
     }
   }, [props.currentSessionState]);
 
+  useEffect(() => {
+    console.log(`stage current state ${props.currentSessionState}`);
 
-  let addCue = () => {
-    let selectedCue =
-      CUE_PHRASES[Math.floor(Math.random() * CUE_PHRASES.length)];
-    setCue(selectedCue);
-    let newDiv = document.createElement("div");
-    newDiv.classList.add("cue");
-    newDiv.innerText = cue;
-    presentationContainerRef.current.appendChild(newDiv);
-    // return cue;
-  };
+    if (props.currentSessionState === "go") {
+      // let selectedCue =
+      // CUE_PHRASES[Math.floor(Math.random() * CUE_PHRASES.length)];
+
+      // cueRef.current = selectedCue;
+      cueRef.current = "I like peanuts in my cereal.";
+      console.log(`cueRef ${cueRef.current}`);
+    }
+  }, [props.currentSessionState]);
 
   const run = () => {
     const socket = io.connect("http://localhost:3001");
@@ -67,9 +55,7 @@ const Stage = (props) => {
     if (socket) {
       // console.log('client id ', socket)
       //TODO: send cue and max words to backend
-      let processedCue = processCue(cue);
-      // console.log(`stringified ${JSON.stringify(processedCue)}`)
-      // console.log(`cue length ${processedCue.cueLength}`)
+      let processedCue = processCue(cueRef.current);
       socket.emit("send_cueData", processedCue);
 
       startWebMic(socket);
@@ -84,26 +70,22 @@ const Stage = (props) => {
       socket.on("results_processed", (data) => {
         console.log("speech results received from server: ", data);
 
-        setSessionResult(data)
+        setSessionResult(data);
         socket.disconnect();
       });
 
       //append element that contains cue and response, but this has to happen only if successful response is received
-
     }
   };
 
-  return (
-    <div className="stage" ref={cueTextRef}>
-      <div
-        ref={presentationContainerRef}
-        className={`${styles["presentation-container"]} ${styles["stage"]}`}
-      >
-        <div className="presentation-content">{cue}</div>
-      </div>
-      <ResultsCard sessionResult = {sessionResult} />
-    </div>
-  );
+  const COMPONENT_STATES = {
+    go: <StageStartCard />,
+    start: <CueSentenceCard cue={cueRef.current} />,
+    listen: <CueSentenceCard cue={cueRef.current} />,
+  };
+
+  //will cause remount: props.currentSessionsState, cue state,
+  return COMPONENT_STATES[props.currentSessionState];
 };
 
 export default Stage;
