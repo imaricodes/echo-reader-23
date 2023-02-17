@@ -11,6 +11,7 @@ import StageStartCard from "../StageComponents/StageStartCard";
 import ResultsCard from "../StageComponents/ResultsCard";
 
 const Stage = (props) => {
+  console.log(`current session state ${props.currentSessionState}`)
   const CUE_PHRASES = [
     "The truth hurts my feet.",
     "Those are beautiful shoes.",
@@ -26,6 +27,7 @@ const Stage = (props) => {
   // const [cue, setCue] = useState(null);
   const [sessionResult, setSessionResult] = useState(null);
   const cueRef = useRef("");
+  const setSessionState = props.setSession
   //Run listening function if currentSessionState
   useEffect(() => {
     if (props.currentSessionState === "listen") {
@@ -67,10 +69,14 @@ const Stage = (props) => {
        * after data is received, close the socket, end the recorder
        */
 
+      //when received, will shut down media recorder
       socket.on("results_processed", (data) => {
         console.log("speech results received from server: ", data);
-
+        
+        //here, update sessionState
         setSessionResult(data);
+        setSessionState('results')
+    
         socket.disconnect();
       });
 
@@ -82,6 +88,7 @@ const Stage = (props) => {
     go: <StageStartCard />,
     start: <CueSentenceCard cue={cueRef.current} />,
     listen: <CueSentenceCard cue={cueRef.current} />,
+    results: <ResultsCard sessionResult = {sessionResult} />
   };
 
   //will cause remount: props.currentSessionsState, cue state,
