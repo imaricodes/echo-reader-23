@@ -42,11 +42,10 @@ const Stage = (props) => {
     console.log(`stage current state ${props.currentSessionState}`);
 
     if (props.currentSessionState === "go") {
-      // let selectedCue =
-      // CUE_PHRASES[Math.floor(Math.random() * CUE_PHRASES.length)];
+      let selectedCue = CUE_PHRASES[Math.floor(Math.random() * CUE_PHRASES.length)];
 
-      // cueRef.current = selectedCue;
-      cueRef.current = "I like peanuts in my cereal.";
+      cueRef.current = selectedCue;
+      // cueRef.current = "I like peanuts in my cereal.";
       console.log(`cueRef ${cueRef.current}`);
     }
   }, [props.currentSessionState]);

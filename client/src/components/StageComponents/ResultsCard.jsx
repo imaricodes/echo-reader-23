@@ -40,7 +40,7 @@ const [displayData, setDisplayData]=useState(sessionResult)
       elements.push(
         React.createElement(
           "div",
-          { className: `grid-item word-res ${matchStatus}` },
+          { className: `${styles['grid-item']} ${styles['word-res']} ${styles[`${matchStatus}`]}` },
           word
         )
       );

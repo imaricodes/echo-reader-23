@@ -1,7 +1,11 @@
 .grid-item {
-    color: red;
+
 }
 
 .word-cue {
-    color: blue;
+
 }
+
+.false {
+    color: rgb(218, 89, 89);
+  }
