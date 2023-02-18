@@ -21,7 +21,8 @@ const [displayData, setDisplayData]=useState(sessionResult)
     for (let i = 0; i < length; i++) {
       const word = displayData[0 + 1][i];
       elements.push(
-        React.createElement("div", { className: "grid-item word-cue" }, word)
+        React.createElement("div", { className: `${styles['grid-item']} ${styles['word-cue']}` }, word)
+        
       );
     }
 
@@ -58,7 +59,7 @@ const [displayData, setDisplayData]=useState(sessionResult)
         >
 
           {
-            displayGridItems(displayData).map((item, index) => <div key={index}>{item}</div>)
+            displayGridItems(displayData).map((item) => item)
             }
 
       </div>

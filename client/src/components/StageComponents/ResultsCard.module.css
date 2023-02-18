@@ -1,3 +1,7 @@
-.result-grid-container {
-    display: grid;
+.grid-item {
+    color: red;
+}
+
+.word-cue {
+    color: blue;
 }
