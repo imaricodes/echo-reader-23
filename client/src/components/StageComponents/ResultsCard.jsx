@@ -21,7 +21,10 @@ const [displayData, setDisplayData]=useState(sessionResult)
     for (let i = 0; i < length; i++) {
       const word = displayData[0 + 1][i];
       elements.push(
-        React.createElement("div", { className: `${styles['grid-item']} ${styles['word-cue']}` }, word)
+        React.createElement("div", { 
+          className: `${styles['grid-item']} ${styles['word-cue']}`,
+          key: i
+        },word)
         
       );
     }
@@ -40,7 +43,10 @@ const [displayData, setDisplayData]=useState(sessionResult)
       elements.push(
         React.createElement(
           "div",
-          { className: `${styles['grid-item']} ${styles['word-res']} ${styles[`${matchStatus}`]}` },
+          { 
+            className: `${styles['grid-item']} ${styles['word-res']} ${styles[`${matchStatus}`]}`,
+            key: i + length
+           },
           word
         )
       );
