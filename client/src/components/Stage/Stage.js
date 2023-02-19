@@ -30,6 +30,7 @@ const Stage = (props) => {
   const setSessionState = props.setSession
   //Run listening function if currentSessionState
   useEffect(() => {
+    //start record function
     if (props.currentSessionState === "listen") {
       run();
     }
@@ -38,6 +39,7 @@ const Stage = (props) => {
     }
   }, [props.currentSessionState]);
 
+  //this effect selects a random cue 
   useEffect(() => {
     console.log(`stage current state ${props.currentSessionState}`);
 
@@ -56,13 +58,14 @@ const Stage = (props) => {
 
     if (socket) {
       
-      //TODO: send cue and max words to backend
+      //TODO: send cue to server
       let processedCue = processCue(cueRef.current);
       socket.emit("send_cueData", processedCue);
 
+      //open browser mic recording stream, send to server via socket
       startWebMic(socket);
 
-      //when received, will shut down media recorder
+      //when backend processing complete, sends this event with session data, closes socket
       socket.on("results_processed", (data) => {
         console.log("speech results received from server: ", data);
         
@@ -73,7 +76,6 @@ const Stage = (props) => {
         socket.disconnect();
       });
 
-      //append element that contains cue and response, but this has to happen only if successful response is received
     }
   };
 
@@ -81,7 +83,9 @@ const Stage = (props) => {
     go: <StageStartCard />,
     start: <CueSentenceCard cue={cueRef.current} />,
     listen: <CueSentenceCard cue={cueRef.current} />,
-    results: <ResultsCard sessionResult = {sessionResult} />
+    results: <ResultsCard sessionResult = {sessionResult} />,
+    restart: <ResultsCard sessionResult = {sessionResult} />,
+    
   };
 
   //will cause remount: props.currentSessionsState, cue state,

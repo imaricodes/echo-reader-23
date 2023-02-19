@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import styles from "./SessionButton.module.css";
 
 const SessionButton = (props) => {
@@ -14,14 +14,33 @@ const SessionButton = (props) => {
 
   };
 
+  useEffect(() => {
+    if (currentSessionsState==="results") {
+      setButtonText("Restart")
+      setSessionState('restart')
+    }
+  
+    return () => {
+      
+    }
+  }, [currentSessionsState])
+  
+
   let handleClick = () => {
     if (currentSessionsState==="go") {
       setButtonText("Start")
       setSessionState('start')
     }
-    else if (currentSessionsState==="start") {
-      setButtonText("listen")
+    
+   if (currentSessionsState==="start") {
+      setButtonText("Cancel")
       setSessionState('listen')
+    }
+ 
+
+    if (currentSessionsState==="restart") {
+      setButtonText("Go")
+      setSessionState('go')
     }
 
   };
