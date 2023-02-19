@@ -65,6 +65,13 @@ io.on("connection", (socket) => {
 
     if (stream.results[0].isFinal == true) {
       //TODO: where in this process do I close the api connection?
+      console.log('closing speech api...')
+      recognizeStream.end()
+      recognizeStream.removeListener('data', speechCallback);
+      recognizeStream = null;
+
+
+
       socket.emit("close_media_recorder", "close_media_recorder")
 
       
@@ -152,16 +159,6 @@ io.on("connection", (socket) => {
     
   // });
 
-  socket.on("close_speech_api", (message) => {
-    console.log(message)
-    if (recognizeStream) {
-      console.log('closing speech api...')
-      recognizeStream.end()
-      recognizeStream = null;
-     
-    } else {console.log('speech api already closed')} 
-    
-  })
 
 });
 

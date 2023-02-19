@@ -21,9 +21,9 @@ export const evaluateSession = (cueObj, responseObj) => {
     result = a === b;
 
     if (result === true) {
-      console.log(`compared true`);
+      // console.log(`compared true`);
     } else {
-      console.log(`compared false`);
+      // console.log(`compared false`);
     }
     return result;
   };
@@ -39,9 +39,9 @@ export const evaluateSession = (cueObj, responseObj) => {
   arr.push(cueDisplay);
 
   for (const [index, name] of cueEvaluate.entries()) {
-    console.log(
-      `cue evaulate array index:  ${cueEvaluate[index]} , ${responseEvaluate[index]}`
-    );
+    // console.log(
+    //   `cue evaulate array index:  ${cueEvaluate[index]} , ${responseEvaluate[index]}`
+    // );
     let cue = cueEvaluate[index];
     let response = responseEvaluate[index];
     let match = "";
@@ -56,20 +56,11 @@ export const evaluateSession = (cueObj, responseObj) => {
       responseDisplayWord: responseDisplay[index],
     });
   }
-  console.log(`evaluated array of objects!: ${JSON.stringify(arr)}`);
+  // console.log(`evaluated array of objects!: ${JSON.stringify(arr)}`);
   return arr;
 };
 
-export const terminateAssemblySession = async () => {
-  console.log("assembly session terminated");
-  socket.send(JSON.stringify({ terminate_session: true }));
-};
 
-export const closeSocket = () => {
-  socket.close();
-  console.log(`socket state: ${socket.readyState}`);
-  socket = null;
-};
 
 export const calculateTimeOut = (startSessionTime, maxSessionTime) => {
   let endTime = Date.now();
