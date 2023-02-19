@@ -1,4 +1,4 @@
-import React, {useContext} from 'react'
+import React, {useContext, useRef, useState, useEffect} from 'react'
 import ControlsMessage from './ControlsMessage'
 import styles from './ControlsContainer.module.css'
 import SessionButton from '../SessionButton/SessionButton'
@@ -13,19 +13,21 @@ const ControlsContainer = (props) => {
   const setSession = props.setSession;
   const setListeningState = props.setIsListening;
 
-  let handleClick = () => {
+  const [instructionsText, setInstructionsText] =useState('Click Go to load a sentence for reading.')
 
-    //check current session state
+  useEffect (()=> {
+    props.currentSessionState ==='start' && setInstructionsText('When you are ready to read the sentence aloud, click Start.');
+    props.currentSessionState ==='listen' && setInstructionsText('Click Cancel to end the session');
+    
+    
+  },[props.currentSessionState])
 
-    //either update current session state or button state
-    console.log('current parent session state prop ', props.currentSessionState)
-    props.setSession('start')
-  }
+
+
   return (
 
-
     <div className={styles['controls-container']}>
-     CONTROLS CONTAINER
+      {instructionsText}
      <SessionButton 
      setSessionState={props.setSessionState}
      currentSessionsState = {props.currentSessionState} 

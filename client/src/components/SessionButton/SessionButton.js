@@ -38,7 +38,7 @@ const SessionButton = (props) => {
     }
  
 
-    if (currentSessionsState==="restart") {
+    if (currentSessionsState==="listen") {
       setButtonText("Go")
       setSessionState('go')
     }
