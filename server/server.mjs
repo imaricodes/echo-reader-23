@@ -4,9 +4,8 @@ import express from "express";
 import { createServer } from "http";
 import { Server } from "socket.io";
 import cors from "cors";
+import { handleStream } from "./js/googleSpeechAPI.mjs";
 
-import { processResponse } from "./js/processTranscription.mjs";
-import {evaluateSession} from './js/utility.mjs';
 
 const app = express();
 
@@ -23,95 +22,12 @@ const io = new Server(server, {
   },
 });
 
-// Imports the Google Cloud client library
-import speech from "@google-cloud/speech";
-const client = new speech.SpeechClient();
 
-const config = {
-  encoding: "WEBM_OPUS",
-  sampleRateHertz: 16000,
-  languageCode: "en-US",
-};
-
-const request = {
-  config,
-  interimResults: true,
-};
 
 io.on("connection", (socket) => {
-  let cueData = {};
+  console.log('server side socket id: ', socket.id)
+  handleStream(socket);
 
-  console.log(`connected with user id ${socket.id}`);
-
-  socket.on("send_cueData", (data) => {
-    console.log(`cueData received: `, data);
-    cueData = { ...data };
-    console.log(`cueData spread ${cueData.display}`)
-  });
-
-  const speechCallback = (stream) => {
-    //TODO: set timeout in case final transcript does not arrive
-    console.log("SPEECH CALLBACK CALLED");
-    let words = stream.results[0].alternatives[0].transcript;
-    let wordsArray = words.split(" ");
-
-    console.log("FINAL TRANSCRIPT? :", stream.results[0].isFinal);
-
-    // console.log("FINAL TRANSCRIPT: ", words);
-    // console.log("word array length ", wordsArray.length);
-    // console.log(`words: ${words}`)
-    // console.log(typeof words)
-    console.log(JSON.stringify(wordsArray));
-
-    if (stream.results[0].isFinal == true) {
-      //TODO: where in this process do I close the api connection?
-      console.log('closing speech api...')
-      recognizeStream.end()
-      recognizeStream.removeListener('data', speechCallback);
-      recognizeStream = null;
-
-
-
-      socket.emit("close_media_recorder", "close_media_recorder")
-
-      
-      let processedResponse = processResponse(words, cueData.cueLength);
-
-      console.log(`processedResult evaluate ${processedResponse.evaluate}`)
-      console.log(`processedResult display ${processedResponse.display}`)
-
-      //evaluate cue, response and return session result object
-
-       let sessionResult = evaluateSession(cueData, processedResponse)
-
-       socket.emit("results_processed", sessionResult)
-      //process result
-
-    }
-
-  };
-
-  let recognizeStream = client
-    .streamingRecognize(request)
-    .on("error", (err) => {
-      if (err.code === 11) {
-        console.log(`errorcode 11 ${err}`);
-        // restartStream();
-      } else {
-        console.error("API request error " + err);
-      }
-    })
-    .on("data", speechCallback);
-
-
-  //disabled temporarily for testing
-  socket.on("incoming_stream", (audio) => {
-    console.log(`stream coming`)
-    if (recognizeStream) {
-      recognizeStream.write(audio);
-    } else console.log('no recognize stream')
-    
-  });
 
   //enabled temporarily for testing
   // socket.on("incoming_stream", (audio) => {

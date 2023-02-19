@@ -3,7 +3,7 @@
 
 
 export const startWebMic = (socket) => {
-
+  console.log('client id ', socket.id)
 
   const getUserMediaConstraints = {audio: {
     channelCount: 1,

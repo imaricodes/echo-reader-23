@@ -52,21 +52,15 @@ const Stage = (props) => {
 
   const run = () => {
     const socket = io.connect("http://localhost:3001");
+    
 
     if (socket) {
-      // console.log('client id ', socket)
+      
       //TODO: send cue and max words to backend
       let processedCue = processCue(cueRef.current);
       socket.emit("send_cueData", processedCue);
 
       startWebMic(socket);
-
-      //TODO: handle receipt of transcribed data
-      /**
-       * socket.on = receipt of object that holds final array of words for display
-       * that data must be sent to the hooks that build the display elements, call those hooks from within this run function?
-       * after data is received, close the socket, end the recorder
-       */
 
       //when received, will shut down media recorder
       socket.on("results_processed", (data) => {
