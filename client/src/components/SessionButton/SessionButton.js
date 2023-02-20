@@ -42,6 +42,10 @@ const SessionButton = (props) => {
       setButtonText("Go")
       setSessionState('cancel')
     }
+    if (currentSessionsState==="restart") {
+      setButtonText("Go")
+      setSessionState('go')
+    }
 
   };
 

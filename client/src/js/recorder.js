@@ -3,81 +3,12 @@
 
 
 export const startWebMic = (socket) => {
-  console.log('WEB MIC STARTED!!!')
-
-  const getUserMediaConstraints = {audio: {
-    channelCount: 1,
-    sampleRate: 16000,
-  }, video: false}
   
-  const mediaRecorderOptions = {
-  mimeType: 'audio/webm; codecs=opus',
-  
-  }
-  
-  const reader = new FileReader();
-  
-  let base64data;
-
-  function sendRecorderDataWhenAvailable(e) {
-    reader.readAsDataURL(e.data)
-    reader.onload = () => {
-      base64data = reader.result.split("base64,")[1];
-      // console.log(`base64 ${base64data}`)
-      socket.emit('incoming_stream', base64data)
-    }
-  }
-  
-  async function startRecorder() {
-    
-    try {
-      await navigator.mediaDevices.getUserMedia(getUserMediaConstraints)
-      
-      // let track = stream.getAudioTracks()[0];
-      // console.log(track.getCapabilities());
-      .then((stream)=> {
-        let mediaRecorder = new MediaRecorder(stream, mediaRecorderOptions); //pass in options
-        
-        if (mediaRecorder) {
-          mediaRecorder.start(250);
-        }
-       
-        mediaRecorder.ondataavailable = sendRecorderDataWhenAvailable;
-
-        //temporarily disabled for testing
-        socket.on("close_media_recorder", (data)=> {
-
-          console.log(`close media recorder message received ${data}`)
-          mediaRecorder.stop()
-         
-          console.log(`media recorder stopped`)
-          mediaRecorder=null;
-          console.log(`media recorder: ${mediaRecorder}`)
-        })
-
-        //temporarily enabled for testing
-        // socket.on("close_media_recorder", (data)=> {
-
-        //   console.log(`close media recorder message received ${data}`)
-        //   mediaRecorder.stop()
-        //   socket.emit("close_speech_api")
-        //   console.log(`media recorder stopped`)
-        //   mediaRecorder=null;
-        //   console.log(`media recorder: ${mediaRecorder}`)
-        // })
-
-  
-      })
-      
-    } catch (error) {
-      console.log('navigator error:' , error.message)
-    }
-  }
-  
-  startRecorder()
 
     //TODO: return data to front end for display to user
 }
+
+
 
 
 
