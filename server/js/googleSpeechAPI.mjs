@@ -42,9 +42,6 @@ export function handleStream (socket) {
       recognizeStream.end()
       recognizeStream.removeListener('data', speechCallback);
       recognizeStream = null;
-
-
-
       socket.emit("close_media_recorder", "close_media_recorder")
 
       
@@ -95,6 +92,15 @@ export function handleStream (socket) {
     } else console.log('no recognize stream')
     
   });
+
+  socket.on("cancel_session", ()=> {
+
+    console.log('closing speech api...')
+      recognizeStream.end()
+      recognizeStream.removeListener('data', speechCallback);
+      recognizeStream = null;
+      socket.emit("close_media_recorder", "close_media_recorder")
+  })
 }
 
   

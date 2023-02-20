@@ -18,6 +18,7 @@ const ControlsContainer = (props) => {
   useEffect (()=> {
     props.currentSessionState ==='start' && setInstructionsText('When you are ready to read the sentence aloud, click Start.');
     props.currentSessionState ==='listen' && setInstructionsText('Click Cancel to end the session');
+    props.currentSessionState ==='cancel' && setInstructionsText('cancel clicked');
     
     
   },[props.currentSessionState])

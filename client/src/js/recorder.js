@@ -3,7 +3,7 @@
 
 
 export const startWebMic = (socket) => {
-  console.log('client id ', socket.id)
+  console.log('WEB MIC STARTED!!!')
 
   const getUserMediaConstraints = {audio: {
     channelCount: 1,
@@ -29,26 +29,19 @@ export const startWebMic = (socket) => {
   }
   
   async function startRecorder() {
-    console.log('async called')
     
     try {
-      console.log('getting devices')
       await navigator.mediaDevices.getUserMedia(getUserMediaConstraints)
       
       // let track = stream.getAudioTracks()[0];
       // console.log(track.getCapabilities());
       .then((stream)=> {
-        console.log('streaming down')
         let mediaRecorder = new MediaRecorder(stream, mediaRecorderOptions); //pass in options
-       
-      console.log(mediaRecorder.state)
         
         if (mediaRecorder) {
           mediaRecorder.start(250);
         }
        
-   
-        console.log(`mediarecorder mime type `, mediaRecorder.mimeType)
         mediaRecorder.ondataavailable = sendRecorderDataWhenAvailable;
 
         //temporarily disabled for testing

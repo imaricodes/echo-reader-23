@@ -27,7 +27,7 @@ const SessionButton = (props) => {
   
 
   let handleClick = () => {
-    if (currentSessionsState==="go") {
+    if (currentSessionsState==="go" || currentSessionsState ==="cancel") {
       setButtonText("Start")
       setSessionState('start')
     }
@@ -40,7 +40,7 @@ const SessionButton = (props) => {
 
     if (currentSessionsState==="listen") {
       setButtonText("Go")
-      setSessionState('go')
+      setSessionState('cancel')
     }
 
   };

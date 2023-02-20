@@ -5,7 +5,7 @@ import { io } from "socket.io-client";
 import { startWebMic } from "../../js/recorder";
 import { processCue } from "../../js/processCue";
 
-import { SessionContext } from "../../contexts/SessionContext";
+// import { SessionContext } from "../../contexts/SessionContext";
 import CueSentenceCard from "../StageComponents/CueSentenceCard";
 import StageStartCard from "../StageComponents/StageStartCard";
 import ResultsCard from "../StageComponents/ResultsCard";
@@ -28,20 +28,12 @@ const Stage = (props) => {
   const [sessionResult, setSessionResult] = useState(null);
   const cueRef = useRef("");
   const setSessionState = props.setSession
-  //Run listening function if currentSessionState
-  useEffect(() => {
-    //start record function
-    if (props.currentSessionState === "listen") {
-      run();
-    }
-
-    if (props.currentSessionState === "restart") {
-    }
-  }, [props.currentSessionState]);
+  const currentSessionState = props.currentSessionState
+ 
 
   //this effect selects a random cue 
   useEffect(() => {
-    console.log(`stage current state ${props.currentSessionState}`);
+    console.log(`stage current state ${currentSessionState}`);
 
     if (props.currentSessionState === "go") {
       let selectedCue = CUE_PHRASES[Math.floor(Math.random() * CUE_PHRASES.length)];
@@ -49,8 +41,30 @@ const Stage = (props) => {
       cueRef.current = selectedCue;
       // cueRef.current = "I like peanuts in my cereal.";
       console.log(`cueRef ${cueRef.current}`);
+
+
+      
+
+
     }
-  }, [props.currentSessionState]);
+  }, [currentSessionState]);
+
+
+    //Run listening function if currentSessionState
+    useEffect(() => {
+      //start record function
+      if (currentSessionState === "listen") {
+
+        run();
+
+      }
+  
+      if (currentSessionState === "cancel") {
+       
+      }
+    }, [currentSessionState]);
+
+
 
   const run = () => {
     const socket = io.connect("http://localhost:3001");
@@ -70,6 +84,7 @@ const Stage = (props) => {
         console.log("speech results received from server: ", data);
         
         //here, update sessionState
+     
         setSessionResult(data);
         setSessionState('results')
     
@@ -85,6 +100,7 @@ const Stage = (props) => {
     listen: <CueSentenceCard cue={cueRef.current} />,
     results: <ResultsCard sessionResult = {sessionResult} />,
     restart: <ResultsCard sessionResult = {sessionResult} />,
+    cancel: <StageStartCard/>,
     
   };
 
